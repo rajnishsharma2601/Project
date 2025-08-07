@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import AppError from "../utils/AppError.js";
+import  appError from "../utils/AppError.js";
 import asyncHandler from "../middlewares/asyncHandler.middleware.js";
 import User from "../models/user.model.js";
 import { razorpay } from "../server.js";
@@ -18,12 +18,12 @@ export const buySubscription = asyncHandler(async (req, res, next) => {
   const user = await User.findById(id);
 
   if (!user) {
-    return next(new AppError("Unauthorized, please login"));
+    return next(new appError("Unauthorized, please login"));
   }
 
   // Checking the user role
   if (user.role === "ADMIN") {
-    return next(new AppError("Admin cannot purchase a subscription", 400));
+    return next(new appError("Admin cannot purchase a subscription", 400));
   }
 
   // Creating a subscription using razorpay that we imported from the server
@@ -70,7 +70,7 @@ export const verifySubscription = asyncHandler(async (req, res, next) => {
 
   // Check if generated signature and signature received from the frontend is the same or not
   if (generatedSignature !== razorpay_signature) {
-    return next(new AppError("Payment not verified, please try again.", 400));
+    return next(new appError("Payment not verified, please try again.", 400));
   }
 
   // If they match create payment and store it in the DB
@@ -106,7 +106,7 @@ export const cancelSubscription = asyncHandler(async (req, res, next) => {
   // Checking the user role
   if (user.role === "ADMIN") {
     return next(
-      new AppError("Admin does not need to cannot cancel subscription", 400)
+      new appError("Admin does not need to cannot cancel subscription", 400)
     );
   }
 
@@ -126,7 +126,7 @@ export const cancelSubscription = asyncHandler(async (req, res, next) => {
     await user.save();
   } catch (error) {
     // Returning error if any, and this error is from razorpay so we have statusCode and message built in
-    return next(new AppError(error.error.description, error.statusCode));
+    return next(new appError(error.error.description, error.statusCode));
   }
 
   // Finding the payment using the subscription ID
@@ -143,7 +143,7 @@ export const cancelSubscription = asyncHandler(async (req, res, next) => {
   // Check if refund period has expired or not
   if (refundPeriod <= timeSinceSubscribed) {
     return next(
-      new AppError(
+      new appError(
         "Refund period is over, so there will not be any refunds provided.",
         400
       )
