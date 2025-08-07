@@ -1,8 +1,8 @@
+import appError from "../utils/AppError.js";
 import crypto from "crypto";
 import fs from "fs/promises";
 import cloudinary from "cloudinary";
 import asyncHandler from "../middlewares/asyncHandler.middleware.js";
-import appError from "../utils/AppError.js";
 import User from "../models/user.model.js";
 import sendEmail from "../utils/sendEmail.js";
 
@@ -305,11 +305,10 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
 
 export const resetPassword = asyncHandler(async (req, res, next) => {
   // Extracting resetToken from req.params object
-     const { resetToken } = req.params;
-
+  const { resetToken } = req.params;
 
   // Extracting password from req.body object
-     const { password } = req.body;
+  const { password } = req.body;
 
   // We are again hashing the resetToken using sha256 since we have stored our resetToken in DB using the same algorithm
   const forgotPasswordToken = crypto
@@ -360,7 +359,6 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
  * @ACCESS Private (Logged in users only)
  */
 
-
 export const changePassword = asyncHandler(async (req, res, next) => {
   // Destructuring the necessary data from the req object
   const { oldPassword, newPassword } = req.body;
@@ -403,17 +401,6 @@ export const changePassword = asyncHandler(async (req, res, next) => {
     message: "Password changed successfully",
   });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @UPDATE_USER
