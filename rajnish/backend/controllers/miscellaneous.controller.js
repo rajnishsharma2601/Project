@@ -1,6 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.middleware.js';
 import User from '../models/user.model.js';
-import appError from '../utils/AppError.js';
+import AppError from '../utils/AppError.js';
 import sendEmail from '../utils/sendEmail.js';
 
 /**
@@ -14,7 +14,7 @@ export const contactUs = asyncHandler(async (req, res, next) => {
 
   // Checking if values are valid
   if (!name || !email || !message) {
-    return next(new appError('Name, Email, Message are required'));
+    return next(new AppError('Name, Email, Message are required'));
   }
 
   try {
@@ -25,7 +25,7 @@ export const contactUs = asyncHandler(async (req, res, next) => {
     await sendEmail(process.env.CONTACT_US_EMAIL, subject, textMessage);
   } catch (error) {
     console.log(error);
-    return next(new appError(error.message, 400));
+    return next(new AppError(error.message, 400));
   }
 
   res.status(200).json({
