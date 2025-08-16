@@ -22,7 +22,7 @@ app.use(
 
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(cors());
+//app.use(cors());
 
 // Server Status Check Route
 app.get("/ping", (_req, res) => {
