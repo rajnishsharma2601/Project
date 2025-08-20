@@ -14,7 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 // Third-Party
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    // origin: [process.env.FRONTEND_URL],
+    // credentials: true,
+    origin: ["https://frontend-eight-navy-49.vercel.app"], // allow frontend
     credentials: true,
   })
 );
