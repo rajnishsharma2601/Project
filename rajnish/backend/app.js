@@ -15,14 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
 app.use(morgan("dev"));
 app.use(cookieParser());
-//app.use(cors());
 
 // Server Status Check Route
 app.get("/ping", (_req, res) => {
@@ -41,8 +38,8 @@ app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1", miscRoutes);
 
 // Default catch all route - 404
-app.all("/", (_req, res) => {
-  res.status(404).send(" hello world");
+app.all("*", (_req, res) => {
+  res.status(404).send("OOPS!!! 404 Page Not Found");
 });
 
 // Custom error handling middleware
