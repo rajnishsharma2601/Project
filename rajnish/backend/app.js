@@ -22,8 +22,8 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 // Server Status Check Route
-app.get("/ping", (_req, res) => {
-  res.send("Pong");
+app.get("/", (_req, res) => {
+  res.send("hello world");
 });
 
 // Import all routes
