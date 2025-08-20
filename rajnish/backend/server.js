@@ -1,6 +1,5 @@
 import { v2 } from "cloudinary";
 import Razorpay from "razorpay";
-import app from "./app.js";
 import connectToDB from "./configs/dbConn.js";
 
 // Cloudinary configuration

@@ -22,8 +22,8 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 // Server Status Check Route
-app.get("/", (_req, res) => {
-  res.send("hello world");
+app.get("/ping", (_req, res) => {
+  res.send("Pong");
 });
 
 // Import all routes
@@ -38,8 +38,8 @@ app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1", miscRoutes);
 
 // Default catch all route - 404
-app.all("/", (_req, res) => {
-  res.send(" hello world");
+app.all("*", (_req, res) => {
+  res.status(404).send("OOPS!!! 404 Page Not Found");
 });
 
 // Custom error handling middleware
